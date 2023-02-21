@@ -10,13 +10,13 @@ import com.collabera.weather.ui.viewModel.LoginDBViewModel
 
 class LoginAc : AppCompatActivity() {
     private lateinit var binding: ActivityLoginBinding
-    private val viewModel: LoginDBViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+       val viewModel: LoginDBViewModel by viewModels()
 
         initView()
     }
@@ -25,16 +25,16 @@ class LoginAc : AppCompatActivity() {
         binding.submitLogin.setOnClickListener {
             insertTb()
         }
-
+/*
         viewModel.userList.observe(this, Observer {
             // textView?.text=it.size.toString()+"\n"+it.toString()
-        })
+        })*/
 
     }
 
     private fun insertTb() {
         val user= TableModel("opMishra","","pass")
-        viewModel.loginValidate(user)
+       // viewModel.loginValidate(user)
     }
 }
 

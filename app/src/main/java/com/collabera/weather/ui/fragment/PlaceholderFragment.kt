@@ -7,7 +7,8 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import com.collabera.weather.databinding.FragmentMainBinding
+import com.collabera.weather.databinding.FragmentDashboardBinding
+import com.collabera.weather.ui.viewModel.PageViewModel
 
 /**
  * A placeholder fragment containing a simple view.
@@ -15,7 +16,7 @@ import com.collabera.weather.databinding.FragmentMainBinding
 class PlaceholderFragment : Fragment() {
 
     private lateinit var pageViewModel: PageViewModel
-    private var _binding: FragmentMainBinding? = null
+    private var _binding: FragmentDashboardBinding? = null
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -34,15 +35,15 @@ class PlaceholderFragment : Fragment() {
             savedInstanceState: Bundle?
     ): View {
 
-        _binding = FragmentMainBinding.inflate(inflater, container, false)
+        _binding = FragmentDashboardBinding.inflate(inflater, container, false)
         val root = binding.root
 
         val textView: TextView = binding.sectionLabel
-        pageViewModel.text.observe(viewLifecycleOwner) {
-            textView.text = it
-        }
-
-        _binding!!.button1.setOnClickListener{pageViewModel.setIndex(111)}
+//        pageViewModel.text.observe(viewLifecycleOwner) {
+//            textView.text = it
+//        }
+//
+//        _binding!!.button1.setOnClickListener{pageViewModel.setIndex(111)}
 
         return root
     }
