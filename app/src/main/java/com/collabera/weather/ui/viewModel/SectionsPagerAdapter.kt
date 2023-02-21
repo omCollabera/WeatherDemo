@@ -1,12 +1,13 @@
 @file:Suppress("DEPRECATION")
 
-package com.collabera.weather.ui.main
+package com.collabera.weather.ui.viewModel
 
 import android.content.Context
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import com.collabera.weather.R
+import com.collabera.weather.ui.fragment.PlaceholderFragment
 
 private val TAB_TITLES = arrayOf(
         R.string.tab_text_1,

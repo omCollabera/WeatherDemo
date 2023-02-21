@@ -1,4 +1,4 @@
-package com.collabera.weather.ui.main
+package com.collabera.weather.ui.fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater

@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1066402521317",
+    "project_id": "weathersample-6d0a0",
+    "storage_bucket": "weathersample-6d0a0.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1066402521317:android:8da00b24d9ae27ce91340c",
+        "android_client_info": {
+          "package_name": "com.collabera.weather"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1066402521317-skt1t014qm2vp0b4b72vheqppusod18l.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDU0RsyFIpJufS9O8dWy6AfbUAFwAcTKdE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1066402521317-skt1t014qm2vp0b4b72vheqppusod18l.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
