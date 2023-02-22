@@ -84,10 +84,9 @@
                 app:layout_constraintTop_toBottomOf="@id/loEmail">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/id_enterpassword"
+                    android:id="@+id/etPassword"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-
                     android:inputType="textPassword"
                     android:textColor="#757575" />
             </com.google.android.material.textfield.TextInputLayout>

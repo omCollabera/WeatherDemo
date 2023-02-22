@@ -12,14 +12,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.WeatherSample"
         tools:targetApi="31">
-        <activity
-            android:name=".Dashboard"
-            android:exported="false"
-            android:label="@string/title_activity_dashboard"
-            android:theme="@style/Theme.WeatherSample.NoActionBar" />
+
         <activity
             android:name=".ui.activity.SplashAc"
-            android:exported="true">
+            android:exported="true"
+            android:theme="@style/Theme.WeatherSample.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -28,13 +25,16 @@
         </activity>
         <activity
             android:name=".ui.activity.LoginAc"
-            android:exported="true" />
+            android:exported="true"
+            android:theme="@style/Theme.WeatherSample.NoActionBar"/>
         <activity
             android:name=".ui.activity.RegisterAc"
-            android:exported="true" />
+            android:exported="true"
+            android:theme="@style/Theme.WeatherSample.NoActionBar"/>
         <activity
             android:name=".ui.activity.ActivityDashboard"
-            android:exported="true" />
+            android:exported="true"
+            android:theme="@style/Theme.WeatherSample.NoActionBar"/>
     </application>
 
 </manifest>
