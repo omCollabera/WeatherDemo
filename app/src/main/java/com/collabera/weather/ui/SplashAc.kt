@@ -1,4 +1,4 @@
-package com.collabera.weather.ui.activity
+package com.collabera.weather.ui
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -7,6 +7,7 @@ import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import com.collabera.weather.R
 import com.collabera.weather.databinding.ActivitySplashScreenBinding
+import com.collabera.weather.ui.loginReg.LoginAc
 
 class SplashAc : AppCompatActivity() {
     private lateinit var binding: ActivitySplashScreenBinding

@@ -1,4 +1,4 @@
-package com.collabera.weather.ui.viewModel
+package com.collabera.weather.ui.loginReg
 
 import android.annotation.SuppressLint
 import androidx.lifecycle.*

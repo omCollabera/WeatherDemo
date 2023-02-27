@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
-
+    <uses-permission android:name="android.permission.INTERNET"/>
     <application
         android:name=".common.BaseApplication"
         android:allowBackup="true"
@@ -14,7 +14,7 @@
         tools:targetApi="31">
 
         <activity
-            android:name=".ui.activity.SplashAc"
+            android:name=".ui.SplashAc"
             android:exported="true"
             android:theme="@style/Theme.WeatherSample.NoActionBar">
             <intent-filter>
@@ -24,17 +24,17 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.activity.LoginAc"
+            android:name=".ui.loginReg.LoginAc"
             android:exported="true"
-            android:theme="@style/Theme.WeatherSample.NoActionBar"/>
+            android:theme="@style/Theme.WeatherSample.NoActionBar" />
         <activity
-            android:name=".ui.activity.RegisterAc"
+            android:name=".ui.loginReg.RegisterAc"
             android:exported="true"
-            android:theme="@style/Theme.WeatherSample.NoActionBar"/>
+            android:theme="@style/Theme.WeatherSample.NoActionBar" />
         <activity
-            android:name=".ui.activity.ActivityDashboard"
+            android:name=".ui.dashboard.ActivityDashboard"
             android:exported="true"
-            android:theme="@style/Theme.WeatherSample.NoActionBar"/>
+            android:theme="@style/Theme.WeatherSample.NoActionBar" />
     </application>
 
 </manifest>

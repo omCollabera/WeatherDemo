@@ -19,6 +19,7 @@ interface QueryDAO {
     @Query("SELECT * FROM userTable WHERE email =:email AND password =:password")
     fun getUser(email:String,password:String): Flow<List<TableModel>>
 
+
     @Query("DELETE FROM userTable")
     suspend fun clearDb()
 }
