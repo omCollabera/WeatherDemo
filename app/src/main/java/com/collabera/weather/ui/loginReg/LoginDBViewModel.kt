@@ -2,6 +2,7 @@ package com.collabera.weather.ui.loginReg
 
 import android.annotation.SuppressLint
 import androidx.lifecycle.*
+import com.collabera.weather.database.LocalSharedPreference
 import com.collabera.weather.models.TableModel
 import com.collabera.weather.repo.DBRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -11,7 +12,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class LoginDBViewModel @Inject constructor(
-    private val repository: DBRepository,
+     val preference: LocalSharedPreference,
+    private val repository: DBRepository
 ): ViewModel() {
 
 
@@ -36,6 +38,8 @@ class LoginDBViewModel @Inject constructor(
         }
     }
 
+
+
     fun registerValidate(  name: String,   email: String,
         pass: String
     ) {
@@ -55,8 +59,5 @@ class LoginDBViewModel @Inject constructor(
             _isRegister.postValue(false)
         }
     }
-
-
-
 
 }

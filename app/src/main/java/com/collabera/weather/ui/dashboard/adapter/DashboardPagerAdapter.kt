@@ -1,4 +1,4 @@
-package com.collabera.weather.ui.dashboard
+package com.collabera.weather.ui.dashboard.adapter
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
@@ -17,7 +17,7 @@ class DashboardPagerAdapter (context: FragmentActivity,fm: FragmentManager):
         tabTitles = context.resources.getStringArray(R.array.home_tab_array)
     }
 
-    override fun getPageTitle(position: Int): CharSequence? {
+    override fun getPageTitle(position: Int): CharSequence {
         return tabTitles[position]
     }
 

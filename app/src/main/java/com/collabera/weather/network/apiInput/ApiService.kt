@@ -9,6 +9,7 @@ interface ApiService {
 
     @GET("weather")
    suspend fun getWeatherByLocation(
+        @Query("units") unit: String,
         @Query("lat") lat: Double,
         @Query("lon") lng: Double,
         @Query("appid") appId: String

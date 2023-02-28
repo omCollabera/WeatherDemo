@@ -8,6 +8,7 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.collabera.weather.databinding.ActivityRegisterBinding
 import com.collabera.weather.ui.dashboard.ActivityDashboard
+import com.collabera.weather.util.Constants
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -68,6 +69,7 @@ class RegisterAc : AppCompatActivity() {
             }
             4 -> {
                 intent= Intent(mContext, ActivityDashboard::class.java)
+                viewModel.preference.setString(Constants.PrimaryEmail,binding.etEmail.text.toString())
             }
         }
         intent?.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)

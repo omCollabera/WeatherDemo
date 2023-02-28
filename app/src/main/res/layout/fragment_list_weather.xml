@@ -3,12 +3,32 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.dashboard.fragment.ListWeatherFm">
 
-    <!-- TODO: Update blank fragment layout -->
     <TextView
+        android:id="@+id/tvSize"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Loading..."
+        android:textSize="@dimen/_15sdp"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvItems"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        tools:listitem="@layout/weather_item"
+        tools:itemCount="10"
+        android:layout_marginTop="@dimen/_30sdp"
+        android:orientation="vertical"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
 </FrameLayout>

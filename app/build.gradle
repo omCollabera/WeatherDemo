@@ -74,7 +74,7 @@ dependencies {
     implementation 'androidx.fragment:fragment:1.5.5'
 
     // LiveData
-    implementation 'androidx.lifecycle:lifecycle-livedata:2.6.0-beta01'
+    implementation 'androidx.lifecycle:lifecycle-livedata:2.6.0-rc01'
     implementation "androidx.activity:activity-ktx:1.6.1"
 
 
@@ -90,6 +90,9 @@ dependencies {
 
     // Picasso
     implementation 'com.squareup.picasso:picasso:2.71828'
+
+    //local store
+    implementation 'androidx.preference:preference:1.2.0'
 }
 // Allow references to generated code
 kapt {

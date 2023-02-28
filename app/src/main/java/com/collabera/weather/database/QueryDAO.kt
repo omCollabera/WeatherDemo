@@ -2,6 +2,7 @@ package com.collabera.weather.database
 import androidx.room.*
 import androidx.room.OnConflictStrategy.Companion.IGNORE
 import com.collabera.weather.models.TableModel
+import com.collabera.weather.models.UserLocationTableModel
 import kotlinx.coroutines.flow.Flow
 
 
@@ -19,7 +20,16 @@ interface QueryDAO {
     @Query("SELECT * FROM userTable WHERE email =:email AND password =:password")
     fun getUser(email:String,password:String): Flow<List<TableModel>>
 
+    //-------------------------
+    @Insert(onConflict = IGNORE)
+    suspend fun insertLocationData(userLocationTableModel: UserLocationTableModel)
 
+    @Query("SELECT * FROM userLocationTable WHERE email =:email")
+    fun getStoredLocation(email:String): Flow<List<UserLocationTableModel>>
+
+    //------------------------
     @Query("DELETE FROM userTable")
     suspend fun clearDb()
+
+
 }

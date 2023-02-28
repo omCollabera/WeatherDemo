@@ -5,34 +5,45 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.collabera.weather.database.LocalSharedPreference
+import com.collabera.weather.models.UserLocationTableModel
 import com.collabera.weather.models.WeatherDataModel
+import com.collabera.weather.repo.DBRepository
 import com.collabera.weather.repo.WeatherRepository
+import com.collabera.weather.util.Constants.PrimaryEmail
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import java.text.DateFormat
-import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
 import javax.inject.Inject
 
+
 @HiltViewModel
 class DashBoardViewModel
 @Inject
-constructor(private val repository: WeatherRepository) : ViewModel() {
+constructor(
+    val localSharedPreference: LocalSharedPreference,
+    private val networkRepo: WeatherRepository,
+    private val dbRepository: DBRepository
+    
+) : ViewModel() {
 
     private val _response = MutableLiveData<WeatherDataModel>()
     val weatherResponse: LiveData<WeatherDataModel>
         get() = _response
 
 
+
     init {
         getWeather()
+        getStoredLocation(localSharedPreference.getString(PrimaryEmail))
     }
 
     private fun getWeather() = viewModelScope.launch {
-        repository.getWeatherByLocation().let { response ->
+        networkRepo.getWeatherByLocation().let { response ->
             if (response.isSuccessful) {
-                Log.d("===>", "response: ${response.body()}")
+                Log.d("===>getWeatherAPI", "response: ${response.body()}")
                 _response.postValue(response.body())
             } else {
                 Log.d("===>", "Error Type Code: ${response.code()}")
@@ -40,20 +51,31 @@ constructor(private val repository: WeatherRepository) : ViewModel() {
         }
     }
 
-
-    fun getCreatedDate(type: String,timeUtc:String): String? {
-        val output = SimpleDateFormat("dd MMM yyyy, hh:mm aa")
-        val input: DateFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.US)
-        input.timeZone = TimeZone.getTimeZone("UTC")
-        var d: Date? = null
-        try {
-            d = input.parse(timeUtc)
-        } catch (e: ParseException) {
-            e.printStackTrace()
+    fun enterUserLocation(locationData: UserLocationTableModel){
+        viewModelScope.launch(Dispatchers.IO) {
+        dbRepository.insertLocationData(locationData)
         }
-        return type + output.format(d)
     }
 
+    private val _weatherList= MutableLiveData<List<UserLocationTableModel>>()
+    val weatherList: LiveData<List<UserLocationTableModel>> get()=_weatherList
+    private fun getStoredLocation(email:String) {
+        viewModelScope.launch(Dispatchers.IO) {
+            dbRepository.getStoredLocation(email).collect { item ->
+                if (item.isNotEmpty()) {
+                    _weatherList.postValue(item)
+                }
+            }
+        }
+    }
+
+    //-------------------------------------------------
+    fun utcFormatted(time: Long): String? {//wip
+        val HMM = SimpleDateFormat("hh:mm a")
+        HMM.timeZone = TimeZone.getTimeZone("UTC")
+        val date = Date(time)
+        return HMM.format(date)
+    }
 
 }
 
