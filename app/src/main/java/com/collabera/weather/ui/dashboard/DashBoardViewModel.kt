@@ -62,20 +62,18 @@ constructor(
     private fun getStoredLocation(email:String) {
         viewModelScope.launch(Dispatchers.IO) {
             dbRepository.getStoredLocation(email).collect { item ->
-                if (item.isNotEmpty()) {
+                if (item!=null && item.isNotEmpty()) {
                     _weatherList.postValue(item)
                 }
             }
         }
     }
 
-    //-------------------------------------------------
-    fun utcFormatted(time: Long): String? {//wip
-        val HMM = SimpleDateFormat("hh:mm a")
-        HMM.timeZone = TimeZone.getTimeZone("UTC")
-        val date = Date(time)
-        return HMM.format(date)
+    //------------------------------------------------
+    fun utcFormatted(time: Long,tmPattern:String): String? {
+        return SimpleDateFormat(tmPattern, Locale.ENGLISH).format(Date(time * 1000))
     }
+
 
 }
 

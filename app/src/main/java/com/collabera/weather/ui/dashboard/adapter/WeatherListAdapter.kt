@@ -27,7 +27,7 @@ class WeatherListAdapter : RecyclerView.Adapter<WeatherListAdapter.MyViewHolder>
     override fun onBindViewHolder(holder: MyViewHolder, pos: Int) {
 
         holder.binding.apply {
-            if(list!![pos].icon == "01d"){
+            if(list!![pos].icon.contains("d")){
                 //day
                 this.ivWeatherSun.setImageResource(R.drawable.sunshine)
             }else{
@@ -40,6 +40,7 @@ class WeatherListAdapter : RecyclerView.Adapter<WeatherListAdapter.MyViewHolder>
             tvCity.text="City - "+list!![pos].city
             tvSunset.text="Sunset - "+list!![pos].sunset
             tvSunrise.text="Sunrise - "+list!![pos].sunrise
+            tvUpdateDateTime.text=list!![pos].entryDateTime
         }
     }
     override fun getItemCount(): Int {

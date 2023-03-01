@@ -1,5 +1,6 @@
 package com.collabera.weather.ui.dashboard.fragment
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -12,7 +13,11 @@ import com.collabera.weather.databinding.FragmentCurrentWeatherBinding
 import com.collabera.weather.models.UserLocationTableModel
 import com.collabera.weather.ui.dashboard.DashBoardViewModel
 import com.collabera.weather.util.Constants.PrimaryEmail
+import com.collabera.weather.util.Constants.dateTimeAm
+import com.collabera.weather.util.Constants.timeAm
 import dagger.hilt.android.AndroidEntryPoint
+import java.text.SimpleDateFormat
+import java.util.*
 
 @AndroidEntryPoint
 class CurrentWeatherFm : Fragment() {
@@ -33,12 +38,14 @@ class CurrentWeatherFm : Fragment() {
 
 
 
+    @SuppressLint("SetTextI18n")
     private fun bindObservers() {
         var email=viewModel.localSharedPreference.getString(PrimaryEmail)
+        Toast.makeText(activity,"WELCOME -"+email, Toast.LENGTH_LONG).show()
 
         viewModel.weatherResponse.observe(viewLifecycleOwner) { result ->
             binding?.container?.apply {
-                if(result.weather[0].icon.equals("01d")){
+                if(result.weather[0].icon.contains("d")){
                     //day
                     ivWeatherSun.setImageResource(R.drawable.sunshine)
                 }else{
@@ -48,9 +55,11 @@ class CurrentWeatherFm : Fragment() {
                 tvTemperature.text="Temperature- "+result.main.temp.toString()+" ℃"
                 tvDescription.text="Description - "+result.weather[0].description
                 tvCountry.text="Country - "+result.sys.country
-                tvCity.text="City - "+result.sys.id.toString()
-                tvSunset.text="Sunset - "+viewModel.utcFormatted(result.sys.sunset)
-                tvSunrise.text="Sunrise - "+viewModel.utcFormatted(result.sys.sunrise)
+                tvCity.text="City - "+result.name
+                tvSunset.text="Sunset - "+viewModel.utcFormatted(result.sys.sunset, timeAm)
+                tvSunrise.text="Sunrise - "+viewModel.utcFormatted(result.sys.sunrise, timeAm)
+
+
 
                 // store in local db
                 val userLocationTableModel=UserLocationTableModel(
@@ -60,15 +69,13 @@ class CurrentWeatherFm : Fragment() {
                     description = result.weather[0].description,
                     country = result.sys.country,
                     city = result.sys.id.toString(),
-                    sunset = result.sys.sunset.toString(),
-                    sunrise = result.sys.sunrise.toString(),
-                    entryDateTime = ""
+                    sunset = viewModel.utcFormatted(result.sys.sunset, timeAm)!!,
+                    sunrise = viewModel.utcFormatted(result.sys.sunrise, timeAm)!!,
+                    entryDateTime = viewModel.utcFormatted(result.dt, dateTimeAm)!!
                 )
                 viewModel.enterUserLocation(userLocationTableModel)
 
             }
-
-            Toast.makeText(activity,"WELCOME -"+email, Toast.LENGTH_LONG).show()
 
         }
     }
