@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.activityViewModels
 import com.collabera.weather.databinding.FragmentListWeatherBinding
 import com.collabera.weather.ui.dashboard.DashBoardViewModel
 import com.collabera.weather.ui.dashboard.adapter.WeatherListAdapter
@@ -16,7 +16,7 @@ class ListWeatherFm : Fragment() {
 
     lateinit var listAdapter: WeatherListAdapter
     private var binding: FragmentListWeatherBinding?=null
-    private val viewModel: DashBoardViewModel by viewModels()
+    private val viewModel: DashBoardViewModel by activityViewModels()
 
     override fun onCreateView( inflater: LayoutInflater, container: ViewGroup?,  savedInstanceState: Bundle? ): View? {
         binding= FragmentListWeatherBinding.inflate(layoutInflater)
@@ -50,7 +50,8 @@ class ListWeatherFm : Fragment() {
     }
 
     companion object {
-        var ARG_SECTION_NUMBER = "section_number";
+        private var ARG_SECTION_NUMBER = "section_number"
+
         @JvmStatic
         fun newInstance(pos: Int) =  ListWeatherFm().apply {arguments = Bundle().apply {
                     putInt(ARG_SECTION_NUMBER, pos)

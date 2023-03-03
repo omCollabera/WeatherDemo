@@ -2,7 +2,6 @@ package com.collabera.weather.repo
 
 import com.collabera.weather.models.WeatherDataModel
 import com.collabera.weather.network.apiInput.ApiService
-import com.collabera.weather.util.Constants
 import retrofit2.Response
 import javax.inject.Inject
 
@@ -10,6 +9,6 @@ class WeatherRepository @Inject constructor(
     private val apiService: ApiService
     ) {
 
-    suspend fun getWeatherByLocation(): Response<WeatherDataModel> = apiService.getWeatherByLocation("metric",28.535517,77.391029,Constants.AppId)
-
+    suspend fun getWeatherByLocation(lat:String,long:String,appId:String): Response<WeatherDataModel> =
+        apiService.getWeatherByLocation("metric", lat, long, appId)
 }

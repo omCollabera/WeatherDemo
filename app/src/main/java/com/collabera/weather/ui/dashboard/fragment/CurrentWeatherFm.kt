@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.activityViewModels
 import com.collabera.weather.R
 import com.collabera.weather.databinding.FragmentCurrentWeatherBinding
 import com.collabera.weather.models.UserLocationTableModel
@@ -16,14 +16,15 @@ import com.collabera.weather.util.Constants.PrimaryEmail
 import com.collabera.weather.util.Constants.dateTimeAm
 import com.collabera.weather.util.Constants.timeAm
 import dagger.hilt.android.AndroidEntryPoint
-import java.text.SimpleDateFormat
 import java.util.*
 
 @AndroidEntryPoint
 class CurrentWeatherFm : Fragment() {
 
     private var binding: FragmentCurrentWeatherBinding?=null
-    private val viewModel: DashBoardViewModel by viewModels()
+    private val viewModel: DashBoardViewModel by activityViewModels()
+
+
 
     override fun onCreateView( inflater: LayoutInflater, container: ViewGroup?,  savedInstanceState: Bundle? ): View? {
         binding=FragmentCurrentWeatherBinding.inflate(layoutInflater)
@@ -40,8 +41,8 @@ class CurrentWeatherFm : Fragment() {
 
     @SuppressLint("SetTextI18n")
     private fun bindObservers() {
-        var email=viewModel.localSharedPreference.getString(PrimaryEmail)
-        Toast.makeText(activity,"WELCOME -"+email, Toast.LENGTH_LONG).show()
+        val email=viewModel.sp.getString(PrimaryEmail)
+        Toast.makeText(activity, "WELCOME -$email", Toast.LENGTH_LONG).show()
 
         viewModel.weatherResponse.observe(viewLifecycleOwner) { result ->
             binding?.container?.apply {
@@ -68,7 +69,7 @@ class CurrentWeatherFm : Fragment() {
                     temperature = result.main.temp.toString(),
                     description = result.weather[0].description,
                     country = result.sys.country,
-                    city = result.sys.id.toString(),
+                    city = result.name,
                     sunset = viewModel.utcFormatted(result.sys.sunset, timeAm)!!,
                     sunrise = viewModel.utcFormatted(result.sys.sunrise, timeAm)!!,
                     entryDateTime = viewModel.utcFormatted(result.dt, dateTimeAm)!!
@@ -78,6 +79,7 @@ class CurrentWeatherFm : Fragment() {
             }
 
         }
+
     }
 
 
