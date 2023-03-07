@@ -9,6 +9,9 @@ import androidx.appcompat.app.AppCompatActivity
 import com.collabera.weather.databinding.ActivityRegisterBinding
 import com.collabera.weather.ui.dashboard.ActivityDashboard
 import com.collabera.weather.util.Constants
+import com.collabera.weather.util.UtilsKt.isValidEmail
+import com.collabera.weather.util.UtilsKt.isValidName
+import com.collabera.weather.util.UtilsKt.isValidPass
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -50,11 +53,11 @@ class RegisterAc : AppCompatActivity() {
         val email=binding.etEmail.text.toString()
         val pass=binding.etPass.text.toString()
         val cPass=binding.etConPass.text.toString()
-        if(name.isEmpty())
+        if(!isValidName(name))
             viewModel.validateMessage("Enter name")
-        else if (email.isEmpty())
-            viewModel.validateMessage("Enter email")
-        else if(pass.isEmpty() || cPass.isEmpty() || pass!=cPass)
+        else if (!isValidEmail(email))
+            viewModel.validateMessage("Enter valid email")
+        else if(!isValidPass(pass) || !isValidPass(pass) || pass!=cPass)
             viewModel.validateMessage("Password is not valid")
         else
             viewModel.registerValidate(name,email,pass)

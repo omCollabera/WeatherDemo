@@ -9,6 +9,8 @@ import androidx.appcompat.app.AppCompatActivity
 import com.collabera.weather.databinding.ActivityLoginBinding
 import com.collabera.weather.ui.dashboard.ActivityDashboard
 import com.collabera.weather.util.Constants.PrimaryEmail
+import com.collabera.weather.util.UtilsKt.isValidEmail
+import com.collabera.weather.util.UtilsKt.isValidPass
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -22,7 +24,6 @@ class LoginAc : AppCompatActivity() {
         setContentView(binding.root)
 
         initView()
-
     }
 
     private fun initView() {
@@ -47,9 +48,10 @@ class LoginAc : AppCompatActivity() {
     private fun insertTb() {
         val email=binding.etEmail.text.toString()
         val pass=binding.etPassword.text.toString()
-         if (email.isEmpty())
-            viewModel.validateMessage("Enter email")
-        else if(pass.isEmpty() )
+
+         if (!isValidEmail(email))
+            viewModel.validateMessage("Enter valid email")
+        else if(!isValidPass(pass))
             viewModel.validateMessage("Password is not valid")
         else
             viewModel.loginValidate(email,pass)

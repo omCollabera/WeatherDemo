@@ -36,9 +36,14 @@ class DashBoardViewModel @Inject constructor(
         get() = _response
 
     init {
-        if(sp.getString(UpdatedLat).isNotEmpty())
-            updateWeatherBasedOnLatestLatLong(sp.getString(UpdatedLat), sp.getString(UpdatedLat), AppId)
 
+        sp.getString(UpdatedLat).let {
+            updateWeatherBasedOnLatestLatLong(
+                sp.getString(UpdatedLat),
+                sp.getString(UpdatedLat),
+                AppId
+            )
+        }
         getStoredLocation(sp.getString(PrimaryEmail))
     }
 
@@ -65,7 +70,7 @@ class DashBoardViewModel @Inject constructor(
     private fun getStoredLocation(email:String) {
         viewModelScope.launch(Dispatchers.IO) {
             dbRepository.getStoredLocation(email).collect { item ->
-                if (item.size>0) {
+                item.let{
                     _weatherList.postValue(item)
                 }
             }
