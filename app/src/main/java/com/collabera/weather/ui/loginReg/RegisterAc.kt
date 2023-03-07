@@ -54,7 +54,7 @@ class RegisterAc : AppCompatActivity() {
         val pass=binding.etPass.text.toString()
         val cPass=binding.etConPass.text.toString()
         if(!isValidName(name))
-            viewModel.validateMessage("Enter name")
+            viewModel.validateMessage("Enter valid name")
         else if (!isValidEmail(email))
             viewModel.validateMessage("Enter valid email")
         else if(!isValidPass(pass) || !isValidPass(pass) || pass!=cPass)
