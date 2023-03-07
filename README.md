@@ -8,14 +8,14 @@ For new weather key and sample JSON url: https://openweathermap.org/api/one-call
 
 
 # Features
-- MVVM
-- HILT
-- Coroutines
-- Location Service with permission
-- API Integration using Retrofit
-- Room Database
-- Handling validations state.
-- Complete Signup/Login Flow
+MVVM 
+HILT 
+Coroutines
+Location Service with permission
+API Integration using Retrofit
+Room Database
+Handling validations state.
+Complete Signup/Login Flow
 
 
 Weather API example:
