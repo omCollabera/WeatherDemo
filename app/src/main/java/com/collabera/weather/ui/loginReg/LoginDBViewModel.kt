@@ -5,6 +5,7 @@ import androidx.lifecycle.*
 import com.collabera.weather.database.LocalSharedPreference
 import com.collabera.weather.models.TableModel
 import com.collabera.weather.repo.DBRepository
+import com.collabera.weather.util.UtilsKt
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.*
 import javax.inject.Inject
@@ -32,20 +33,27 @@ class LoginDBViewModel @Inject constructor(
     }
 
     fun loginValidate(email:String,password:String) {
+        val check=validateInput("",email,password,password,true)
+        if(!check.first){
+            _message.postValue(check.second!!)
+            return
+        }
             viewModelScope.launch(Dispatchers.IO) {
                 repository.getUser(email,password).collect(_userList::postValue)
-
         }
     }
 
 
 
-    fun registerValidate(  name: String,   email: String,
-        pass: String
-    ) {
+    @SuppressLint("SuspiciousIndentation")
+    fun registerValidate(name: String, email: String, pass: String, cPass: String) {
+        val check=validateInput(name,email,pass,cPass,false)
+            if(!check.first){
+                _message.postValue(check.second!!)
+                return
+            }
             val userData =TableModel(name = name, email = email, password = pass)
             registerUser(userData)
-
     }
 
 
@@ -58,6 +66,23 @@ class LoginDBViewModel @Inject constructor(
             }else
             _isRegister.postValue(false)
         }
+    }
+
+    fun validateInput(userName: String, emailAddress: String,  password: String, cPass: String,
+                            isLogin: Boolean) : Pair<Boolean, String> {
+
+        var result = Pair(true, "")
+        if(!isLogin && !UtilsKt.isValidName(userName)){
+            result = Pair(false, "Enter valid name")
+        }
+
+        else if(!UtilsKt.isValidEmail(emailAddress)){
+            result = Pair(false, "Email is invalid")
+        }
+        else if(!UtilsKt.isValidPass(password) || !UtilsKt.isValidPass(cPass) || password!=cPass){
+            result = Pair(false, "Password is not valid")
+        }
+        return result
     }
 
 }

@@ -48,13 +48,7 @@ class LoginAc : AppCompatActivity() {
     private fun insertTb() {
         val email=binding.etEmail.text.toString()
         val pass=binding.etPassword.text.toString()
-
-         if (!isValidEmail(email))
-            viewModel.validateMessage("Enter valid email")
-        else if(!isValidPass(pass))
-            viewModel.validateMessage("Password is not valid")
-        else
-            viewModel.loginValidate(email,pass)
+        viewModel.loginValidate(email,pass)
     }
 
     var mContext:Context = this@LoginAc

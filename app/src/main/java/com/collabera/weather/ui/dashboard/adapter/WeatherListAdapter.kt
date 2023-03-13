@@ -47,8 +47,6 @@ class WeatherListAdapter : RecyclerView.Adapter<WeatherListAdapter.MyViewHolder>
         return if (list == null) 0 else list!!.size
     }
 
-
-
     class MyViewHolder(itemView: WeatherItemBinding) :RecyclerView.ViewHolder(itemView.root) {
         var binding: WeatherItemBinding
         init {
