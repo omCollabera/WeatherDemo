@@ -3,10 +3,10 @@ package com.collabera.weather.models
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.collabera.weather.util.Constants.LocationTable
 
 
-@Entity(  tableName = "userLocationTable"
-)
+@Entity(  tableName = LocationTable)
 data class UserLocationTableModel(
     var icon: String,
     var email: String,

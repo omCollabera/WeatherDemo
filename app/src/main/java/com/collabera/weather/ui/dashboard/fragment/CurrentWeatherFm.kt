@@ -65,7 +65,7 @@ class CurrentWeatherFm : Fragment() {
                 // store in local db
                 val userLocationTableModel=UserLocationTableModel(
                     icon = result.weather[0].icon,
-                    email = email,
+                    email = email!!,
                     temperature = result.main.temp.toString(),
                     description = result.weather[0].description,
                     country = result.sys.country,

@@ -5,7 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.collabera.weather.database.LocalSharedPreference
+import com.collabera.weather.common.MySharedPreference
 import com.collabera.weather.models.UserLocationTableModel
 import com.collabera.weather.models.WeatherDataModel
 import com.collabera.weather.repo.DBRepository
@@ -24,7 +24,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class DashBoardViewModel @Inject constructor(
-    val sp: LocalSharedPreference,
+    val sp: MySharedPreference,
     private val networkRepo: WeatherRepository,
     private val dbRepository: DBRepository
 ) : ViewModel() {
@@ -39,12 +39,12 @@ class DashBoardViewModel @Inject constructor(
 
         sp.getString(UpdatedLat).let {
             updateWeatherBasedOnLatestLatLong(
-                sp.getString(UpdatedLat),
-                sp.getString(UpdatedLat),
+                sp.getString(UpdatedLat)!!,
+                sp.getString(UpdatedLat)!!,
                 AppId
             )
         }
-        getStoredLocation(sp.getString(PrimaryEmail))
+        getStoredLocation(sp.getString(PrimaryEmail)!!)
     }
 
      fun updateWeatherBasedOnLatestLatLong(lat:String, long: String, appId: String) = viewModelScope.launch {

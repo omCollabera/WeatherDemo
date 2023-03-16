@@ -2,7 +2,7 @@ package com.collabera.weather.ui.loginReg
 
 import android.annotation.SuppressLint
 import androidx.lifecycle.*
-import com.collabera.weather.database.LocalSharedPreference
+import com.collabera.weather.common.MySharedPreference
 import com.collabera.weather.models.TableModel
 import com.collabera.weather.repo.DBRepository
 import com.collabera.weather.util.UtilsKt
@@ -13,11 +13,11 @@ import javax.inject.Inject
 
 @HiltViewModel
 class LoginDBViewModel @Inject constructor(
-     val preference: LocalSharedPreference,
     private val repository: DBRepository
 ): ViewModel() {
 
-
+    @Inject
+    lateinit var preference: MySharedPreference
 
    private val _userList= MutableLiveData<List<TableModel>>()
     val userList: LiveData<List<TableModel>> get()=_userList

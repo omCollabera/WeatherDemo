@@ -3,9 +3,11 @@ package com.collabera.weather.di
 
 import android.content.Context
 import androidx.room.Room
+import com.collabera.weather.common.MySharedPreference
 import com.collabera.weather.database.InitDataBase
 import com.collabera.weather.network.apiInput.ApiService
 import com.collabera.weather.util.Constants
+import com.collabera.weather.util.Constants.DataBaseName
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -20,17 +22,18 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 object AppModule {
 
+    //------------Room Database Module
     @Singleton
     @Provides
     fun provideDatabase(  @ApplicationContext app: Context   ) =
-        Room.databaseBuilder(  app, InitDataBase::class.java,  "UserDataBase"   ).build()
+        Room.databaseBuilder(app, InitDataBase::class.java,DataBaseName).build()
 
     @Singleton
     @Provides
     fun provideQueryDao(db: InitDataBase) = db.getQueryDao()
 
 
-    //------------API
+    //------------API Module
     @Provides
     fun provideBaseUrl() = Constants.BASE_URL
 
@@ -39,5 +42,9 @@ object AppModule {
     fun provideRetrofitInstance(BASE_URL: String): ApiService =
         Retrofit.Builder()  .baseUrl(BASE_URL)  .addConverterFactory(GsonConverterFactory.create())   .build()
             .create(ApiService::class.java)
+
+    //------------Preference Module
+    @Provides
+    fun providePreference(@ApplicationContext context: Context )= MySharedPreference(context)
 
 }
