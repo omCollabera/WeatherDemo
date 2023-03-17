@@ -13,50 +13,40 @@ import com.google.common.truth.Truth.assertThat
 import junit.framework.TestCase
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.test.runTest
 import org.junit.After
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 
 @RunWith(AndroidJUnit4::class)
-class DBRepositoryTest : TestCase(){
-    lateinit var loginDBViewModel: LoginDBViewModel
+class DBRepositoryTest {
     private lateinit var queryDAO: QueryDAO
     private lateinit var db: InitDataBase
     private lateinit var dbRepository: DBRepository
     //------
     private lateinit var userTable: TableModel
-    private lateinit var userLocationTableModel: UserLocationTableModel
 
     @Before
-    public override fun setUp() {
-        super.setUp()
+    fun setUp() {
         val context = ApplicationProvider.getApplicationContext<Context>()
         db = Room.inMemoryDatabaseBuilder(context, InitDataBase::class.java).build()
         queryDAO = db.getQueryDao()
         dbRepository= DBRepository(queryDAO)
-        loginDBViewModel= LoginDBViewModel(dbRepository)
     }
 
-
-
     @Test
-    fun registerUser() =runBlocking{
-        userTable=TableModel("c1","unit1@gmail.com","123")
-       val result1=queryDAO.register(userTable)
-        assertThat(result1).isGreaterThan(0)
+    fun registerUser() = runTest{
+            userTable = TableModel("c1", "unit1@gmail.com", "123")
+            val result1 = queryDAO.register(userTable)
+            assertThat(result1).isGreaterThan(0)
 
-        val result2=queryDAO.getUser("unit1@gmail.com","123").first()
-        assertThat(result2).hasSize(1)
-
+            val result2 = queryDAO.getUser("unit1@gmail.com", "123").first()
+            assertThat(result2).hasSize(1)
     }
 
-
-
-
-
     @Test
-    fun insertLocationData() = runBlocking{
+    fun insertLocationData() = runTest{
        var locationTableModel=UserLocationTableModel(
            "d","unit1@gmail.com","100",
        "unit test c1","India","Delhi-Noida",
@@ -70,7 +60,7 @@ class DBRepositoryTest : TestCase(){
 
 
     @After
-    public override fun tearDown() {
+    fun tearDown() {
         db.close()
     }
 }

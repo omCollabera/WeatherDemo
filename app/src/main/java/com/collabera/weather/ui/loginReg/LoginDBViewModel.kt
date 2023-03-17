@@ -77,7 +77,7 @@ class LoginDBViewModel @Inject constructor(
         }
 
         else if(!UtilsKt.isValidEmail(emailAddress)){
-            result = Pair(false, "Email is invalid")
+            result = Pair(false, "Email is not invalid")
         }
         else if(!UtilsKt.isValidPass(password) || !UtilsKt.isValidPass(cPass) || password!=cPass){
             result = Pair(false, "Password is not valid")
